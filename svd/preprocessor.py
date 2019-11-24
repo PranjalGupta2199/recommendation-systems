@@ -86,7 +86,6 @@ def preprocess():
         movie_index = num_movies.index(dataset['mid'][iter])
         utility_matrix[user_index][movie_index] = dataset['rating'][iter]
 
-
     return assign_missing_values(utility_matrix)
 
 

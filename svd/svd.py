@@ -1,5 +1,6 @@
 from .preprocessor import preprocess
-from .model import SVD
+# from .model import svd
+from scipy.linalg import svd
 import numpy as np
 
 
@@ -11,8 +12,17 @@ def calculate_svd(input_matrix):
     """
     input_matrix = np.asarray(input_matrix, dtype=np.float32)
 
-    U, s, Vt = SVD(input_matrix)
-    return U, sigma, Vt
+    u, s, vt = svd(input_matrix)
+
+    idx_1_1 = s.argsort()[::-1]
+    s = s[idx_1_1]
+    u = u[:, idx_1_1]
+
+    idx_1_1 = s.argsort()[::-1]
+    s = s[idx_1_1]
+    vt = vt[:, idx_1_1]
+
+    return u, np.diag(s), vt
 
 
 def calculate_svd_90(input_matrix):
@@ -23,7 +33,7 @@ def calculate_svd_90(input_matrix):
     """
     input_matrix = np.asarray(input_matrix, dtype=np.float32)
 
-    U, s, Vt = SVD(input_matrix)
+    U, s, Vt = svd(input_matrix)
     sigma = np.zeros((input_matrix.shape[0],  input_matrix.shape[1]))
     sigma[:input_matrix.shape[1], :input_matrix.shape[1]] = np.diag(s)
 
