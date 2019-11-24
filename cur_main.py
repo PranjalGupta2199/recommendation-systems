@@ -46,7 +46,7 @@ if (__name__ == "__main__"):
     # CUR Decomposition
     rmse = 0
     mae = 0
-    for i in range(2000, 2001):
+    for i in range(10, 11):
         C, U, R = cur.calculate_cur(utility_matrix, i)
         result = np.matmul(C, np.matmul(U, R))
         print(result.shape[0], result.shape[1])

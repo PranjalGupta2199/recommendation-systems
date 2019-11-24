@@ -1,4 +1,5 @@
-from scipy.linalg import svd
+# from scipy.linalg import svd
+from .model import SVD
 import numpy as np
 import math
 
@@ -85,10 +86,8 @@ def calculate_cur(input_matrix, r):
     #     [ 5, 0]]
 
     W = np.asarray(W, dtype=np.float32)
-
-    X, s, Yt = svd(W)
-    sigma = np.zeros((W.shape[0],  W.shape[1]))
-    sigma[:W.shape[1], :W.shape[1]] = np.diag(s)
+    temp = SVD(W)
+    X, sigma, Yt = temp.decompose()
 
     for i in range(len(sigma)):
         for j in range(len(sigma[0])):
